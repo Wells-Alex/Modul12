@@ -12,6 +12,16 @@ public class Task2 {
         threadB.start();
         threadC.start();
         threadD.start();
+
+        try {
+            threadA.join();
+            threadB.join();
+            threadC.join();
+            threadD.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 
@@ -28,7 +38,11 @@ class FizzBuzzMultithreaded {
     public void fizz() {
         while (true) {
             synchronized (lock) {
-                if (current > n) return;
+                if (current > n) {
+                    lock.notifyAll();
+                    return;
+                }
+
 
                 if (!(current % 3 == 0 && current % 5 != 0)) {
                     try {
@@ -50,7 +64,11 @@ class FizzBuzzMultithreaded {
     public void buzz() {
         while (true) {
             synchronized (lock) {
-                if (current > n) return;
+                if (current > n) {
+                    lock.notifyAll();
+                    return;
+                }
+
 
                 if (!(current % 5 == 0 && current % 3 != 0)) {
                     try {
@@ -72,7 +90,11 @@ class FizzBuzzMultithreaded {
     public void fizzbuzz() {
         while (true) {
             synchronized (lock) {
-                if (current > n) return;
+                if (current > n) {
+                    lock.notifyAll();
+                    return;
+                }
+
 
                 if (!(current % 15 == 0)) {   // делится на 3 и 5
                     try {
@@ -94,7 +116,11 @@ class FizzBuzzMultithreaded {
     public void number() {
         while (true) {
             synchronized (lock) {
-                if (current > n) return;
+                if (current > n) {
+                    lock.notifyAll();
+                    return;
+                }
+
 
                 if (current % 3 == 0 || current % 5 == 0) {
                     try {
